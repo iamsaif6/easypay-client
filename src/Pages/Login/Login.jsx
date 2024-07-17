@@ -1,5 +1,11 @@
+import { ToastContainer } from 'react-toastify';
+
 const Login = () => {
-  return <div>Login Page</div>;
+  return (
+    <div>
+      <ToastContainer />
+    </div>
+  );
 };
 
 export default Login;

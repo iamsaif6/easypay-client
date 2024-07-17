@@ -6,6 +6,7 @@ import Transactions from '../Pages/Dashboard/Transactions';
 import SendMoney from '../Pages/Dashboard/SendMoney';
 import CashIn from '../Pages/Dashboard/CashIn';
 import CashOut from '../Pages/Dashboard/CashOut';
+import Register from '../Pages/Register/Register';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,14 @@ const router = createBrowserRouter([
         element: <CashOut></CashOut>,
       },
     ],
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/register',
+    element: <Register></Register>,
   },
 ]);
 
