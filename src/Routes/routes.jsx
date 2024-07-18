@@ -7,11 +7,16 @@ import SendMoney from '../Pages/Dashboard/SendMoney';
 import CashIn from '../Pages/Dashboard/CashIn';
 import CashOut from '../Pages/Dashboard/CashOut';
 import Register from '../Pages/Register/Register';
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: '/',
