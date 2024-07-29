@@ -4,8 +4,13 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
+import { Navigate } from 'react-router-dom';
 
 const Register = () => {
+  //Check if user already loggedin
+  const [data, isPending] = useAuth();
+
   const [showPin, setShowPin] = useState(false);
   const {
     register,
@@ -24,6 +29,11 @@ const Register = () => {
       }
     });
   };
+
+  //if user loggedin return to dashboard
+  if (!isPending && data.isVerified) {
+    return <Navigate to="/"></Navigate>;
+  }
 
   return (
     <div className="grid h-screen grid-cols-1 md:grid-cols-2 place-items-center">
