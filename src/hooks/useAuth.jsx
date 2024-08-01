@@ -9,11 +9,13 @@ const useAuth = () => {
     queryKey: [username, secret],
     queryFn: async () => {
       let result;
-      if (username && secret) {
+      const token = localStorage.getItem('token');
+      if (username && secret && token) {
         result = await axiosPrivate.post('/verify', { username, secret });
+        return result.data;
+      } else if (!token || !username || !secret) {
+        return (result.data.isVerified = false);
       }
-      console.log(result.data);
-      return result.data;
     },
   });
 

@@ -31,7 +31,7 @@ const Register = () => {
   };
 
   //if user loggedin return to dashboard
-  if (!isPending && data.isVerified) {
+  if (!isPending && data?.isVerified) {
     return <Navigate to="/"></Navigate>;
   }
 

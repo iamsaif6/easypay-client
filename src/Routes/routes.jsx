@@ -8,6 +8,8 @@ import CashIn from '../Pages/Dashboard/CashIn';
 import CashOut from '../Pages/Dashboard/CashOut';
 import Register from '../Pages/Register/Register';
 import PrivateRoute from './PrivateRoute';
+import Users from '../Pages/Dashboard/Admin/Users';
+import Agents from '../Pages/Dashboard/Admin/Agents';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/cashOut',
         element: <CashOut></CashOut>,
+      },
+      {
+        path: '/dashboard/users',
+        element: <Users></Users>,
+      },
+      {
+        path: '/dashboard/agents',
+        element: <Agents></Agents>,
       },
     ],
   },

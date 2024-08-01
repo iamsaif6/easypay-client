@@ -22,18 +22,20 @@ const Login = () => {
     // console.log(data);
     axios.post(`${import.meta.env.VITE_API_ADDRESS}/login`, data).then(res => {
       if (res.data.token) {
-        console.log(res.data);
         //set tokens to local storage on  successful login
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userInfo', res.data.user);
         localStorage.setItem('secret', res.data.secret);
         toast.success('Login successful!');
+      } else {
+        console.log(res.data);
+        toast.error(res.data.message);
       }
     });
   };
 
   // if user already loggedin do this
-  if (!isPending && data.isVerified) {
+  if (!isPending && data?.isVerified) {
     return <Navigate to="/" />;
   }
 

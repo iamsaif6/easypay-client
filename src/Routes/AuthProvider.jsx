@@ -1,13 +1,17 @@
 import { createContext } from 'react';
-import { Navigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   //SignOut
   const signOut = () => {
-    localStorage.removeItem('token', 'userInfo', 'secret');
-    return <Navigate to="/login" />;
+    const itemRemove = ['token', 'userInfo', 'secret'];
+    itemRemove.forEach(item => {
+      localStorage.removeItem(item);
+    });
+
+    window.location.replace('/login');
+    return;
   };
 
   const contextValue = {
