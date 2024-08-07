@@ -2,12 +2,15 @@ import { useContext, useState } from 'react';
 import { AiOutlineTransaction } from 'react-icons/ai';
 import { BiBookAdd, BiLogOutCircle, BiSolidDashboard } from 'react-icons/bi';
 import { BsCash, BsSendCheckFill } from 'react-icons/bs';
-import { FaBars, FaHandHoldingUsd, FaHome } from 'react-icons/fa';
+import { FaBars, FaHandHoldingUsd, FaHome, FaUserTie } from 'react-icons/fa';
 import { Menu, MenuItem, Sidebar, SubMenu } from 'react-pro-sidebar';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { AuthContext } from '../../Routes/AuthProvider';
 import '../Dashboard/dashboard.css';
+import { MdManageAccounts, MdSpaceDashboard } from 'react-icons/md';
+import { HiUsers } from 'react-icons/hi';
+import Heading from '../../components/Heading';
 
 const Dashboard = () => {
   const { signOut } = useContext(AuthContext);
@@ -62,18 +65,18 @@ const Dashboard = () => {
     <>
       <Menu className=" font-medium">
         <NavLink to="/">
-          <MenuItem icon={<AiOutlineTransaction className="text-[#50B1B3] text-[20px]" />}>Dashboard </MenuItem>
+          <MenuItem icon={<MdSpaceDashboard className="text-[#50B1B3] text-[20px]" />}>Dashboard </MenuItem>
         </NavLink>
-        <SubMenu defaultOpen={true} label="User Managment" icon={<BiSolidDashboard className="text-primary text-[20px]" />}>
+        <SubMenu defaultOpen={true} label="User Managment" icon={<MdManageAccounts className="text-[#524FE6] text-[20px]" />}>
           <NavLink to="/dashboard/users">
-            <MenuItem icon={<AiOutlineTransaction className="text-[#50B1B3] text-[20px]" />}>Users</MenuItem>
+            <MenuItem icon={<HiUsers className="text-[#EE8139] text-[20px]" />}>Users</MenuItem>
           </NavLink>
           <NavLink to="/dashboard/agents">
-            <MenuItem icon={<AiOutlineTransaction className="text-[#50B1B3] text-[20px]" />}>Agents</MenuItem>
+            <MenuItem icon={<FaUserTie className="text-[#EECE70] text-[20px]" />}>Agents</MenuItem>
           </NavLink>
         </SubMenu>
         <NavLink to="/dashboard/transactions">
-          <MenuItem icon={<AiOutlineTransaction className="text-[#50B1B3] text-[20px]" />}>All Transactions </MenuItem>
+          <MenuItem icon={<AiOutlineTransaction className="text-[#F19957] text-[20px]" />}>All Transactions </MenuItem>
         </NavLink>
       </Menu>
     </>
