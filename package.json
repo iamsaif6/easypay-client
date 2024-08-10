@@ -23,7 +23,8 @@
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^6.24.1",
     "react-toastify": "^10.0.5",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "sweetalert2": "^11.12.4"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

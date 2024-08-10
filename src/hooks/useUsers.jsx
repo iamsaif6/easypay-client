@@ -15,16 +15,20 @@ const useUsers = () => {
     signOut();
   }
 
-  const { data: users, isLoading } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
       const result = await axiosPrivate.post('/users', { username, secret });
-      console.log(result.data);
-      return result.data;
+      // console.log(result?.data);
+      return result?.data;
     },
   });
 
-  return [users, isLoading];
+  return [users, isLoading, refetch];
 };
 
 export default useUsers;

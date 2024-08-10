@@ -23,7 +23,7 @@ const Register = () => {
       if (res.data.acknowledged) {
         console.log(res.data);
         toast.success('Registration successful. Now you can login.');
-        // window.location.href = '/login';
+        window.location.href = '/login';
       } else if (res.data.message) {
         toast.error(`${res.data.message}`);
       }
