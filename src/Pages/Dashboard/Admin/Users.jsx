@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { FaCheck, FaHourglassStart } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+import { TbCurrencyTaka } from 'react-icons/tb';
+import TableSkeleton from '../../../components/TableSkeleton';
 
 const Users = () => {
   const username = localStorage.getItem('userInfo') || null;
@@ -62,7 +64,12 @@ const Users = () => {
                   <TableRow key={user._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                     <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{user.email}</TableCell>
                     <TableCell>{user?.phone}</TableCell>
-                    <TableCell>${user?.balance}</TableCell>
+                    <TableCell>
+                      <span className="flex items-center">
+                        <TbCurrencyTaka className="inline text-[20px]" />
+                        {user?.balance}
+                      </span>
+                    </TableCell>
                     <TableCell>
                       {user?.status === 'pending' && (
                         <Tooltip placement="right" content="Pending">
@@ -92,6 +99,7 @@ const Users = () => {
               })}
           </TableBody>
         </Table>
+        {isLoading && <TableSkeleton />}
       </div>
     </div>
   );
