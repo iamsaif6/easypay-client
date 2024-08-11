@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../Routes/AuthProvider';
 import useAxiosPrivate from './useAxiosPrivate';
 
-const useUsers = () => {
+const useAgents = () => {
   const axiosPrivate = useAxiosPrivate();
   const username = localStorage.getItem('userInfo') || null;
   const secret = localStorage.getItem('secret') || null;
@@ -22,7 +22,7 @@ const useUsers = () => {
   } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-      const result = await axiosPrivate.post('/users', { username, secret });
+      const result = await axiosPrivate.post('/agents', { username, secret });
       return result?.data;
     },
   });
@@ -30,4 +30,4 @@ const useUsers = () => {
   return [users, isLoading, refetch];
 };
 
-export default useUsers;
+export default useAgents;

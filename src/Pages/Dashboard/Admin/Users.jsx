@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import TableSkeleton from '../../../components/TableSkeleton';
+import { MdBlock } from 'react-icons/md';
+import { CgUnblock } from 'react-icons/cg';
 
 const Users = () => {
   const username = localStorage.getItem('userInfo') || null;
@@ -22,9 +24,9 @@ const Users = () => {
   //Handle Approve Button
   const handleApprove = id => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: `Please make sure the user has all varifications !`,
-      icon: 'warning',
+      title: 'Approve user ?',
+      text: `Please make sure the user has all varifications!`,
+      icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
@@ -45,6 +47,58 @@ const Users = () => {
     });
   };
 
+  //handle Block Button
+  const handleBlock = id => {
+    Swal.fire({
+      title: 'Block the user ?',
+      text: `The user will be restricted!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Block!',
+    }).then(result => {
+      if (result.isConfirmed) {
+        axiosPrivate.patch('/block', { id: id, username, secret }).then(res => {
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: 'Blocked!',
+              text: 'The user has been blocked!',
+              icon: 'success',
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
+  //handle UnBlock Button
+  const handleUnBlock = id => {
+    Swal.fire({
+      title: 'Unblock user ?',
+      text: `The user will be unblocked!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Block!',
+    }).then(result => {
+      if (result.isConfirmed) {
+        axiosPrivate.patch('/unblock', { id: id, username, secret }).then(res => {
+          if (res.data.modifiedCount > 0) {
+            Swal.fire({
+              title: 'Unblocked!',
+              text: 'The user has been Unblocked!',
+              icon: 'success',
+            });
+            refetch();
+          }
+        });
+      }
+    });
+  };
+
   return (
     <div>
       <Heading text="Manage Users"></Heading>
@@ -55,7 +109,7 @@ const Users = () => {
             <TableHeadCell>Phone</TableHeadCell>
             <TableHeadCell>Balance</TableHeadCell>
             <TableHeadCell>Status</TableHeadCell>
-            <TableHeadCell>Block</TableHeadCell>
+            <TableHeadCell>Block / Unblock</TableHeadCell>
           </TableHead>
           <TableBody className="divide-y">
             {user &&
@@ -71,7 +125,7 @@ const Users = () => {
                       </span>
                     </TableCell>
                     <TableCell>
-                      {user?.status === 'pending' && (
+                      {user?.status === 'pending' && user?.isBlocked === false && (
                         <Tooltip placement="right" content="Pending">
                           <button
                             onClick={() => handleApprove(user._id)}
@@ -81,18 +135,35 @@ const Users = () => {
                           </button>
                         </Tooltip>
                       )}
-                      {user?.status === 'approved' && (
+                      {user?.status === 'approved' && user?.isBlocked === false && (
                         <Tooltip placement="right" content="Approved">
                           <button disabled className="bg-green-400 p-2  text-[10px] rounded-full text-white">
                             <FaCheck />
                           </button>
                         </Tooltip>
                       )}
+                      {user?.isBlocked === true && (
+                        <Tooltip placement="right" content="Blocked">
+                          <button disabled className="text-[13px] rounded-full text-white">
+                            <MdBlock className="text-[23px] text-red-600" />
+                          </button>
+                        </Tooltip>
+                      )}
                     </TableCell>
                     <TableCell>
-                      <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                        Edit
-                      </a>
+                      {user?.isBlocked ? (
+                        <Tooltip placement="right" content="Unblock">
+                          <button onClick={() => handleUnBlock(user._id)}>
+                            <CgUnblock className="text-[25px] text-green-600" />
+                          </button>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip placement="right" content="Block">
+                          <button onClick={() => handleBlock(user._id)}>
+                            <MdBlock className="text-[23px] text-red-600" />
+                          </button>
+                        </Tooltip>
+                      )}
                     </TableCell>
                   </TableRow>
                 );
