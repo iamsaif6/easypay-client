@@ -49,6 +49,14 @@ const SendMoney = () => {
     data.type = 'send';
 
     //Check if user trying to send money to own account
+    if (data.receiver_email === userInfo) {
+      Swal.fire({
+        title: 'Invalid receiver!',
+        text: 'You can not send money to yourself.',
+        icon: 'error',
+      });
+      return;
+    }
 
     Swal.fire({
       title: 'Please Confirm !',
