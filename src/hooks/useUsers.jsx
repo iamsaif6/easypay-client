@@ -11,18 +11,21 @@ const useUsers = () => {
   const [data] = useAuth();
   const { signOut } = useContext(AuthContext);
   //SingOut the user if the users role is not admin
-  if (data?.role !== 'admin') {
-    signOut();
-  }
+  // if (data?.role !== 'admin') {
+  //   signOut();
+  // }
 
   const {
     data: users,
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['user'],
+    queryKey: [data?.role],
     queryFn: async () => {
       const result = await axiosPrivate.post('/users', { username, secret });
+      if (data?.role !== 'admin') {
+        return null;
+      }
       return result?.data;
     },
   });

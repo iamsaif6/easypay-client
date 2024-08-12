@@ -13,12 +13,12 @@ import useAgents from '../../../hooks/useAgents';
 const Agents = () => {
   const username = localStorage.getItem('userInfo') || null;
   const secret = localStorage.getItem('secret') || null;
-  const [users, isLoading, refetch] = useAgents();
+  const [agents, isLoading, refetch] = useAgents();
   const [user, setUser] = useState();
   //set user to a state
   useEffect(() => {
-    setUser(users);
-  }, [isLoading, users]);
+    setUser(agents);
+  }, [isLoading, agents]);
   const axiosPrivate = useAxiosPrivate();
 
   //Handle Approve Button

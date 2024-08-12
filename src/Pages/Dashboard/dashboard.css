@@ -1,3 +1,26 @@
 .ps-sidebar-container .active li {
-  background: #e0dfe1;
+  background: #ff6817;
+  color: #fff;
+}
+
+.ps-sidebar-container {
+  color: #fff;
+}
+
+.ps-sidebar-container .css-ewdv3l {
+  color: #fff;
+  background-color: #201c19;
+}
+
+.ps-sidebar-container .ps-menu-button {
+  transition: all 0.2s;
+}
+
+.ps-sidebar-container .ps-menu-button:hover {
+  background-color: #ff6817 !important;
+}
+
+[type='text']:focus,
+[type='number']:focus {
+  box-shadow: none !important;
 }

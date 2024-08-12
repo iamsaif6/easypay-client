@@ -10,7 +10,6 @@ import { AuthContext } from '../../Routes/AuthProvider';
 import '../Dashboard/dashboard.css';
 import { MdManageAccounts, MdSpaceDashboard } from 'react-icons/md';
 import { HiUsers } from 'react-icons/hi';
-import Heading from '../../components/Heading';
 
 const Dashboard = () => {
   const { signOut } = useContext(AuthContext);
@@ -18,21 +17,21 @@ const Dashboard = () => {
   //User Dashboard Menu
   const navUser = (
     <>
-      <Menu className=" font-medium">
+      <Menu className=" font-medium text-white">
         <NavLink to="/">
-          <MenuItem icon={<BiSolidDashboard className="text-primary text-[20px]" />}>Dashboard</MenuItem>
-        </NavLink>
-        <NavLink to="/dashboard/transactions">
-          <MenuItem icon={<AiOutlineTransaction className="text-[#50B1B3] text-[20px]" />}>Transaction</MenuItem>
+          <MenuItem icon={<BiSolidDashboard className=" text-[20px]" />}>Dashboard</MenuItem>
         </NavLink>
         <NavLink to="/dashboard/sendMoney">
-          <MenuItem icon={<BsSendCheckFill className="text-[#3128E2] text-[20px]" />}>Send Money</MenuItem>
+          <MenuItem icon={<BsSendCheckFill className=" text-[20px]" />}>Send Money</MenuItem>
         </NavLink>
         <NavLink to="/dashboard/cashOut">
-          <MenuItem icon={<FaHandHoldingUsd className="text-[#EE8139] text-[20px]" />}>Cash Out</MenuItem>
+          <MenuItem icon={<FaHandHoldingUsd className=" text-[20px]" />}>Cash Out</MenuItem>
         </NavLink>
         <NavLink to="/dashboard/cashin">
-          <MenuItem icon={<BsCash className="text-[#5FBD43] text-[20px]" />}>Cash In</MenuItem>
+          <MenuItem icon={<BsCash className=" text-[20px]" />}>Cash In</MenuItem>
+        </NavLink>
+        <NavLink to="/dashboard/transactions">
+          <MenuItem icon={<AiOutlineTransaction className="text-[20px]" />}>Transaction</MenuItem>
         </NavLink>
       </Menu>
     </>
@@ -41,20 +40,20 @@ const Dashboard = () => {
   //Agent Dashboard Menu
   const navAgent = (
     <>
-      <Menu className=" font-medium">
+      <Menu className=" font-medium text-white">
         <NavLink to="/">
-          <MenuItem icon={<BiSolidDashboard className="text-primary text-[20px]" />}>Dashboard</MenuItem>
+          <MenuItem icon={<BiSolidDashboard className=" text-[20px]" />}>Dashboard</MenuItem>
         </NavLink>
         <SubMenu defaultOpen={true} label="Transaction Management">
           <NavLink to="/dashboard/cashOut">
-            <MenuItem icon={<FaHandHoldingUsd className="text-[#EE8139] text-[20px]" />}>Cash Out</MenuItem>
+            <MenuItem icon={<FaHandHoldingUsd className="text-[20px]" />}>Cash Out</MenuItem>
           </NavLink>
           <NavLink to="/dashboard/cashin">
-            <MenuItem icon={<BsCash className="text-[#5FBD43] text-[20px]" />}>Cash In</MenuItem>
+            <MenuItem icon={<BsCash className=" text-[20px]" />}>Cash In</MenuItem>
           </NavLink>
         </SubMenu>
         <NavLink to="/dashboard/transactions">
-          <MenuItem icon={<AiOutlineTransaction className="text-[#50B1B3] text-[20px]" />}>History</MenuItem>
+          <MenuItem icon={<AiOutlineTransaction className=" text-[20px]" />}>History</MenuItem>
         </NavLink>
       </Menu>
     </>
@@ -65,24 +64,24 @@ const Dashboard = () => {
     <>
       <Menu className=" font-medium">
         <NavLink to="/">
-          <MenuItem icon={<MdSpaceDashboard className="text-[#50B1B3] text-[20px]" />}>Dashboard </MenuItem>
+          <MenuItem icon={<MdSpaceDashboard className=" text-[20px]" />}>Dashboard </MenuItem>
         </NavLink>
-        <SubMenu defaultOpen={true} label="User Managment" icon={<MdManageAccounts className="text-[#524FE6] text-[20px]" />}>
+        <SubMenu defaultOpen={true} label="User Managment" icon={<MdManageAccounts className=" text-[20px]" />}>
           <NavLink to="/dashboard/users">
-            <MenuItem icon={<HiUsers className="text-[#EE8139] text-[20px]" />}>Users</MenuItem>
+            <MenuItem icon={<HiUsers className=" text-[20px]" />}>Users</MenuItem>
           </NavLink>
           <NavLink to="/dashboard/agents">
-            <MenuItem icon={<FaUserTie className="text-[#EECE70] text-[20px]" />}>Agents</MenuItem>
+            <MenuItem icon={<FaUserTie className=" text-[20px]" />}>Agents</MenuItem>
           </NavLink>
         </SubMenu>
         <NavLink to="/dashboard/transactions">
-          <MenuItem icon={<AiOutlineTransaction className="text-[#F19957] text-[20px]" />}>All Transactions </MenuItem>
+          <MenuItem icon={<AiOutlineTransaction className=" text-[20px]" />}>All Transactions </MenuItem>
         </NavLink>
       </Menu>
     </>
   );
 
-  const [data, isPending] = useAuth();
+  const [data] = useAuth();
   const [collapsed, setCollapsed] = useState(false);
   const [toggled, setToggled] = useState(false);
   const [broken, setBroken] = useState(false);
@@ -91,16 +90,18 @@ const Dashboard = () => {
       {/* <Helmet>
         <title>Dashboard</title>
       </Helmet> */}
-      <div className="absolute md:relative h-screen">
+      <div className="absolute z-50 h-screen">
         <Sidebar
-          className="opacity-100 bg-white"
+          backgroundColor="#201C19"
+          color="#fff"
+          className="opacity-100  "
           collapsed={collapsed}
           toggled={toggled}
           onBackdropClick={() => setToggled(false)}
           onBreakPoint={setBroken}
           breakPoint="md"
         >
-          <div className="h-screen left-0 pt-9 " style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className="h-screen   left-0 pt-9 " style={{ display: 'flex', flexDirection: 'column' }}>
             <a className="mb-9 text-center" href="/">
               {/* <img src={logo} className="h-6 sm:h-9 mx-auto" alt="Flowbite React Logo" /> */}
               <span className="self-center whitespace-nowrap text-[30px] font-semibold dark:text-white">
@@ -123,7 +124,7 @@ const Dashboard = () => {
                   <MenuItem icon={<FaHome></FaHome>}>Home</MenuItem>
                 </Link>
                 <MenuItem icon={<BiBookAdd />}>Documentation</MenuItem>
-                <MenuItem onClick={signOut} icon={<BiLogOutCircle className="text-red-600 text-[20px]" />}>
+                <MenuItem onClick={signOut} icon={<BiLogOutCircle className="text-[20px]" />}>
                   Logout
                 </MenuItem>
               </Menu>
@@ -143,7 +144,7 @@ const Dashboard = () => {
           </div>
         </main>
       </div>
-      <div className="md:max-w-[950px] mt-12 w-full flex-1 px-4 mx-auto">
+      <div className="md:max-w-[950px] flex-1 mt-12 w-full px-4 mx-auto">
         <Outlet></Outlet>
       </div>
     </div>
