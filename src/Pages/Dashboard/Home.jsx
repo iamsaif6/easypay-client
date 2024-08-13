@@ -15,6 +15,8 @@ const Home = () => {
       {data?.role === 'user' && <Heading text="User Dashboard"></Heading>}
       {data?.role === 'agent' && <Heading text="Agent Dashboard"></Heading>}
 
+      <p>User Total Balance : {data.balance} Taka</p>
+
       {data?.role === 'admin' && (
         <section className="grid gap-4">
           <div className="bg-[#FDF4E0] p-9 rounded-2xl flex flex-col gap-8 justify-between">

@@ -5,7 +5,7 @@ const useAuth = () => {
   const axiosPrivate = useAxiosPrivate();
   const username = localStorage.getItem('userInfo') || null;
   const secret = localStorage.getItem('secret') || null;
-  const { data, isPending } = useQuery({
+  const { data, isPending, refetch } = useQuery({
     queryKey: [username, secret],
     queryFn: async () => {
       let result;
@@ -19,7 +19,7 @@ const useAuth = () => {
     },
   });
 
-  return [data, isPending];
+  return [data, isPending, refetch];
 };
 
 export default useAuth;

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import useAuth from '../../hooks/useAuth';
 
 const SendMoney = () => {
   const [amount, setAmount] = useState(0);
@@ -13,6 +14,7 @@ const SendMoney = () => {
   const [finalAmount, setFinalAmount] = useState(0);
   const [showPin, setShowPin] = useState(false);
   const axiosPrivate = useAxiosPrivate();
+  const [refetch] = useAuth();
 
   const userInfo = localStorage.getItem('userInfo');
 
@@ -21,6 +23,7 @@ const SendMoney = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const watchAmount = Number(watch('amount'));
@@ -28,6 +31,7 @@ const SendMoney = () => {
   //change amount when the user type the amount in field
   useEffect(() => {
     setAmount(watchAmount);
+    // setFinalAmount(watchAmount);
     //charge 5 tk if the amount is more than 100
     if (amount > 100) {
       setFees(5);
@@ -38,7 +42,7 @@ const SendMoney = () => {
     if (amount > 100) {
       setFinalAmount(amount + Number(fees));
     } else {
-      setFinalAmount(0);
+      setFinalAmount(watchAmount);
     }
   }, [watchAmount, amount, fees]);
 
@@ -65,11 +69,13 @@ const SendMoney = () => {
       showCancelButton: true,
       confirmButtonColor: '#489D72',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Send!',
+      confirmButtonText: `Send !`,
     }).then(result => {
       if (result.isConfirmed) {
         // Send money request to api
         axiosPrivate.post('/send-money', data).then(res => {
+          console.log(res.data);
+
           if (res.data.code === 402) {
             Swal.fire({
               title: `${res.data.message}`,
@@ -106,6 +112,20 @@ const SendMoney = () => {
               text: 'Please contact to admin!',
               icon: 'error',
             });
+          } else if (res.data.code === 407) {
+            Swal.fire({
+              title: `${res.data.message}`,
+              text: 'You can not send money to yourself.',
+              icon: 'error',
+            });
+          } else if (res.data.acknowledged) {
+            Swal.fire({
+              title: `Payment sent successfully`,
+              text: 'You will receive a confirmation shortly',
+              icon: 'success',
+            });
+            reset();
+            refetch();
           }
         });
       }
@@ -153,6 +173,11 @@ const SendMoney = () => {
             {errors.amount?.type === 'min' && (
               <p className="text-[14px] text-red-600 mt-2" role="alert">
                 Minimun amount is BDT 50
+              </p>
+            )}
+            {errors.amount?.type === 'required' && (
+              <p className="text-[14px] text-red-600 mt-2" role="alert">
+                Please enter an amount
               </p>
             )}
           </div>
